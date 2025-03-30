@@ -1,0 +1,16 @@
+{
+  "name": "troublemaker",
+  "version": "0.1.0",
+  "description": "Discord bot for LFT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bubu",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.23.0"
+  }
+}
