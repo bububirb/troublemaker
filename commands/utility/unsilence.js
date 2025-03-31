@@ -18,7 +18,7 @@ module.exports = {
       members.sweep(member => member === user);
 
       const voiceStates = members.map(member => member.voice);
-      voiceStates.forEach(member => member.setMute());
+      voiceStates.forEach(member => member.setMute(false));
 
       // Reply with how many members have been unmuted
       const memberCount = voiceStates.length;
