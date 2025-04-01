@@ -1,5 +1,5 @@
 const { ContextMenuCommandBuilder, ApplicationCommandType, MessageFlags, messageLink } = require('discord.js');
-const { logId, verifiedRoleId } = require('../../config.json');
+const { logId, verifiedRoleId, defaultRoleIds } = require('../../config.json');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -23,8 +23,12 @@ module.exports = {
 			.then(member => member.roles.add(verifiedRoleId))
 			.catch(console.error);
 
+		//Assign default roles
+		interaction.guild.members.fetch(targetUser.id)
+			.then(member => defaultRoleIds.forEach(role => member.roles.add(role)));
+
 		await interaction.reply({
-			content: `Verified ${interaction.targetMessage.member}! Message has been saved in <#${logId}>`,
+			content: `Verified ${targetUser}! Message has been saved in <#${logId}>`,
 			flags: MessageFlags.Ephemeral
 		});
 	},
