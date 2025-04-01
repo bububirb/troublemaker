@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, MessageFlags, channelLink, messageLink } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, MessageFlags, messageLink } = require('discord.js');
 const { logId, verifiedRoleId } = require('../../config.json');
 
 module.exports = {
@@ -6,18 +6,21 @@ module.exports = {
 		.setName('Verify')
 		.setType(ApplicationCommandType.Message),
 	async execute(interaction) {
+		// Get target user
+		const targetUser = interaction.targetMessage.author;
 		// Fetch log channel
 		interaction.client.channels.fetch(`${logId}`)
 			.then(channel => {
 				// Send verified user ID
-				channel.send(interaction.targetId);
+				channel.send(targetUser.id);
 				// Forward verification message
 				interaction.targetMessage.forward(channel);
 			})
 			.catch(console.error);
 
 		// Assign verified role
-		interaction.targetMessage.member.roles.add(verifiedRoleId)
+		interaction.guild.members.fetch(targetUser.id)
+			.then(member => member.roles.add(verifiedRoleId))
 			.catch(console.error);
 
 		await interaction.reply({
