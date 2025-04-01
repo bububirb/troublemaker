@@ -1,4 +1,8 @@
+
 const { ContextMenuCommandBuilder, ApplicationCommandType, MessageFlags, messageLink } = require('discord.js');
+
+
+
 const { logId, verifiedRoleId } = require('../../config.json');
 
 module.exports = {
@@ -24,7 +28,11 @@ module.exports = {
 			.catch(console.error);
 
 		await interaction.reply({
-			content: `Verified ${targetUser}! Message has been saved in <#${logId}>`,
+
+
+
+			content: `Verified ${interaction.targetMessage.member}! Message has been saved in <#${logId}>`,
+
 			flags: MessageFlags.Ephemeral
 		});
 	},
